@@ -35,47 +35,57 @@ struct HomeView: View {
                 .padding(.horizontal)
                 
                 // Habits
-                ScrollView {
-                    VStack(spacing: 12) {
-                        ForEach(habits) { habit in
-                            
-                            let completed = completedIDs.contains(habit.id)
-                            
-                            HStack(spacing: 16) {
+                if habits.isEmpty {
+                    Spacer()
+                    ContentUnavailableView(
+                        "No Habits Yet",
+                        systemImage: "checklist",
+                        description: Text("Tap the + button to add your first habit.")
+                    )
+                } else {
+                    ScrollView {
+                        VStack(spacing: 12) {
+                            ForEach(habits) { habit in
                                 
-                                Text(habit.emoji)
-                                    .font(.system(size: 30))
+                                let completed = completedIDs.contains(habit.id)
                                 
-                                Text(habit.habit)
-                                    .font(.headline)
-                                
-                                Spacer()
-                                
-                                Image(systemName: completed ? "checkmark.circle.fill" : "circle")
-                                    .font(.title2)
-                                    .foregroundStyle(completed ? .green : .gray)
-                            }
-                            .padding()
-                            .background(
-                                completed
-                                ? Color.green.opacity(0.15)
-                                : Color(.systemGray6)
-                            )
-                            .clipShape(RoundedRectangle(cornerRadius: 14))
-                            .onTapGesture {
-                                if completed {
-                                    completedIDs.remove(habit.id)
-                                } else {
-                                    completedIDs.insert(habit.id)
+                                HStack(spacing: 16) {
+                                    
+                                    Text(habit.emoji)
+                                        .font(.system(size: 30))
+                                    
+                                    Text(habit.habit)
+                                        .font(.headline)
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: completed ? "checkmark.circle.fill" : "circle")
+                                        .font(.title2)
+                                        .foregroundStyle(completed ? .green : .gray)
+                                }
+                                .padding()
+                                .background(
+                                    completed
+                                    ? Color.green.opacity(0.15)
+                                    : Color(.systemGray6)
+                                )
+                                .clipShape(RoundedRectangle(cornerRadius: 14))
+                                .onTapGesture {
+                                    if completed {
+                                        completedIDs.remove(habit.id)
+                                    } else {
+                                        completedIDs.insert(habit.id)
+                                    }
                                 }
                             }
                         }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
                 }
                 
                 Spacer()
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .overlay(alignment: .bottomTrailing) {
                 NavigationLink {
                     AddHabitView()
