@@ -95,6 +95,6 @@ struct HomeView: View {
 }
 
 #Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+    HomeView()
+        .modelContainer(for: Habit.self, inMemory: true)
 }
