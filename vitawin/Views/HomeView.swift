@@ -46,31 +46,8 @@ struct HomeView: View {
                     ScrollView {
                         VStack(spacing: 12) {
                             ForEach(habits) { habit in
-                                
                                 let completed = completedIDs.contains(habit.id)
-                                
-                                HStack(spacing: 16) {
-                                    
-                                    Text(habit.emoji)
-                                        .font(.system(size: 30))
-                                    
-                                    Text(habit.habit)
-                                        .font(.headline)
-                                    
-                                    Spacer()
-                                    
-                                    Image(systemName: completed ? "checkmark.circle.fill" : "circle")
-                                        .font(.title2)
-                                        .foregroundStyle(completed ? .green : .gray)
-                                }
-                                .padding()
-                                .background(
-                                    completed
-                                    ? Color.green.opacity(0.15)
-                                    : Color(.systemGray6)
-                                )
-                                .clipShape(RoundedRectangle(cornerRadius: 14))
-                                .onTapGesture {
+                                HabitCardView(habit: habit, isCompleted: completed) {
                                     if completed {
                                         completedIDs.remove(habit.id)
                                     } else {
