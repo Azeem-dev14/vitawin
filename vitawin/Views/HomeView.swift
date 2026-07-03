@@ -16,7 +16,7 @@ struct HomeView: View {
 //        Habit(habit: "Walk 5 Minutes", emoji: "🚶")
 //    ]
     
-    @State private var completedIDs: Set<UUID> = []
+
     
     var body: some View {
         NavigationStack {
@@ -46,12 +46,12 @@ struct HomeView: View {
                     ScrollView {
                         VStack(spacing: 12) {
                             ForEach(habits) { habit in
-                                let completed = completedIDs.contains(habit.id)
+                                let completed = habit.completedDate != nil
                                 HabitCardView(habit: habit, isCompleted: completed) {
                                     if completed {
-                                        completedIDs.remove(habit.id)
+                                        habit.completedDate = nil
                                     } else {
-                                        completedIDs.insert(habit.id)
+                                        habit.completedDate = Date()
                                     }
                                 }
                             }

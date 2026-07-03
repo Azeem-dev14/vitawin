@@ -14,16 +14,19 @@ final class Habit {
     var habit: String
     var emoji: String
     var createdDate: Date
-
+    var completedDate: Date?
+    
     init(
         id: UUID = UUID(),
         habit: String,
         emoji: String,
-        createdDate: Date = Date()
+        createdDate: Date = Date(),
+        completedDate: Date? = nil
     ) {
         self.id = id
         self.habit = habit
         self.emoji = emoji
         self.createdDate = createdDate
+        self.completedDate = completedDate
     }
 }
