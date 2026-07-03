@@ -17,8 +17,18 @@ struct HabitCardView: View {
             Text(habit.emoji)
                 .font(.system(size: 30))
             
-            Text(habit.habit)
-                .font(.headline)
+            VStack(alignment: .leading, spacing: 4) {
+                Text(habit.habit)
+                    .font(.headline)
+                
+                let streak = habit.currentStreak
+                if streak > 0 {
+                    Text("\(streak) day streak 🔥")
+                        .font(.caption)
+                        .foregroundStyle(.orange)
+                        .fontWeight(.semibold)
+                }
+            }
             
             Spacer()
             

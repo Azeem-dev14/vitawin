@@ -16,7 +16,6 @@ struct HomeView: View {
 //        Habit(habit: "Walk 5 Minutes", emoji: "🚶")
 //    ]
     
-
     
     var body: some View {
         NavigationStack {
@@ -46,13 +45,9 @@ struct HomeView: View {
                     ScrollView {
                         VStack(spacing: 12) {
                             ForEach(habits) { habit in
-                                let completed = habit.completedDate != nil
+                                let completed = habit.isCompletedToday
                                 HabitCardView(habit: habit, isCompleted: completed) {
-                                    if completed {
-                                        habit.completedDate = nil
-                                    } else {
-                                        habit.completedDate = Date()
-                                    }
+                                    habit.toggleCompletion()
                                 }
                             }
                         }
